@@ -6,7 +6,7 @@ public class EnemySpawner : MonoBehaviour
    [SerializeField] public GameObject SlimePrefab;
    [SerializeField] public float Timer;
    [SerializeField] public bool RunGame;
-   [SerializeField] public Transform SpawnPosition;
+   private Transform SpawnPosition;
 
     private void Start()
     {

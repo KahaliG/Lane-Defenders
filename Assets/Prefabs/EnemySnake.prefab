@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3642b65acfd13f54bb215cc405d20ac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScrollSpeed: 3.2
+  ScrollSpeed: 2.5
   CanReceiveGameInput: 1
 --- !u!61 &5534065535457592459
 BoxCollider2D:
@@ -159,9 +159,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef5fe53bdf144244b9110e15912f8a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Enemy: {fileID: 4667714277990610966}
+  Lives: 2
   ScoreBox: 1
-  Lives: 3
-  bullet: {fileID: 8755358678104173492, guid: da349e095b9f4b24eb019fb20a780ce2, type: 3}
+  EnemyDied: {fileID: 8300000, guid: 94677681169cf1a4f842c7fdc6bb20cf, type: 3}
+  StunTime: 6
+  Timer: 2
+  Speed: 0
+  Sped: 0
+  transferSped: 0
 --- !u!95 &4891097409712219397
 Animator:
   serializedVersion: 5

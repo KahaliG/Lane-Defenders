@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1591650931135357200}
   - component: {fileID: 245000153446535419}
   - component: {fileID: 5754937803504790330}
-  - component: {fileID: 5357685916254067788}
   - component: {fileID: 4808440412885972738}
   - component: {fileID: 6153678174882724590}
   - component: {fileID: 5894212623780611451}
@@ -101,24 +100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3642b65acfd13f54bb215cc405d20ac9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScrollSpeed: 5
+  ScrollSpeed: 3
   CanReceiveGameInput: 1
---- !u!114 &5357685916254067788
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1908308654085043051}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ee0ec1c00459874999ca61a08330ada, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SlimePrefab: {fileID: 1908308654085043051}
-  Timer: 4
-  RunGame: 0
-  SpawnPosition: {fileID: 0}
 --- !u!61 &4808440412885972738
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -176,8 +159,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edab12406ebbdb54abb844d6951a046d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Enemy: {fileID: 1908308654085043051}
   Lives: 0
   ScoreBox: 1
+  EnemyDied: {fileID: 8300000, guid: 94677681169cf1a4f842c7fdc6bb20cf, type: 3}
+  StunTime: 0
+  Timer: 0
+  Speed: 0
+  Sped: 0
+  transferSped: 0
 --- !u!95 &5894212623780611451
 Animator:
   serializedVersion: 5

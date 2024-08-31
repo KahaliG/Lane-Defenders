@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - PlayerBullet
   - Goal
+  - PlayerController
   layers:
   - Default
   - TransparentFX

@@ -4,16 +4,48 @@ using UnityEngine;
 
 public class SlimeHitbox : MonoBehaviour
 {
+    public GameObject Enemy;
     private bool beenHit;
     [SerializeField] public int Lives;
     [SerializeField] public bool ScoreBox;
+    public AudioClip EnemyDied;
+    private bool stunnedwaittime;
+    private float StunnedSped;
+    public float StunTime;
+    public float Timer;
+    public float Speed;
+    public float Sped;
+    public float transferSped;
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<BulletControl>() != null)
+
+        if (stunnedwaittime == true)
         {
+            Timer += Time.deltaTime;
+            if (Timer >= StunTime)
+            {
+                transferSped = Speed;
+                Timer = 0;
+                // EnemyAnimation.SetBool("Shot", false);
+                stunnedwaittime = false;
+            }
+        }
+
+        if (collision.gameObject.tag == "PlayerBullet")
+        {
+            Lives--;
+            transferSped = StunnedSped;
+            stunnedwaittime = true;
+            //EnemyAnimation.SetBool("Shot", true);
+        }
+
+
+        if (Lives < 0)
+        {
+            AudioSource.PlayClipAtPoint(EnemyDied, transform.position);
+            Destroy(gameObject);
             GameManager GM = FindObjectOfType<GameManager>();
-            //GM.
 
             if (ScoreBox)
             {
@@ -21,15 +53,9 @@ public class SlimeHitbox : MonoBehaviour
             }
         }
 
-        if (collision.gameObject.tag == "PlayerBullet")
+        if (collision.gameObject.tag == "PlayerController")
         {
-            Lives--;
-        }
-
-
-        if (Lives < 0)
-        {
-            Destroy(gameObject);
+            Destroy(this.gameObject);
         }
 
         if (beenHit)
@@ -39,6 +65,7 @@ public class SlimeHitbox : MonoBehaviour
         }
     }
 
+
     public void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "PlayerController")
@@ -46,7 +73,6 @@ public class SlimeHitbox : MonoBehaviour
             Destroy(this.gameObject);
         }
     }
-
 }
 
 

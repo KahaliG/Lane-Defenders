@@ -5,12 +5,16 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     public PlayerController PlayerControllerInstance;
-    public GameObject SlimePrefab;
-    public GameObject WormPrefab;
+    public GameObject slimePrefab;
+    public GameObject wormPrefab;
     public GameObject SnailPrefab;
-    public TMP_Text Score;
-    public int MainScore;
-    public float Timer;
+    public TMP_Text scoreText;
+    public TMP_Text finalScoreText;
+    public TMP_Text highScoreText;
+    public int currentScore;
+    public float SlimeTimer = 2;
+    public float SnailTimer = 3;
+    public float WormTimer = 3;
     public bool RunGame;
     public Transform SpawnPosition1;
     public Transform SpawnPosition2;
@@ -28,14 +32,35 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator SpawnSlime()
     {
-        float currentTime = Timer;
+        float currentSlimeTime = SlimeTimer;
+        float currentSnailTime = SnailTimer;
+        float currentWormTime = WormTimer;
+
         while (RunGame)
         {
-            currentTime -= Time.deltaTime;
-            if (currentTime <= 0)
+            currentSlimeTime -= Time.deltaTime;
+            if (currentSlimeTime <= 0)
             {
                 SpawnSlimeInstance();
-                currentTime = Timer;
+                currentSlimeTime = SlimeTimer;
+            }
+
+            yield return null;
+
+            currentSnailTime -= Time.deltaTime;
+            if (currentSnailTime <= 0)
+            {
+                SpawnWormInstance();
+                currentSnailTime = SnailTimer;
+            }
+
+            yield return null;
+
+            currentWormTime -= Time.deltaTime;
+            if (currentWormTime <= 0)
+            {
+                SpawnSnailInstance();
+                currentWormTime = WormTimer;
             }
 
             yield return null;
@@ -44,35 +69,55 @@ public class GameManager : MonoBehaviour
 
     public void SpawnSlimeInstance()
     {
-        Instantiate(SlimePrefab, SpawnPosition1.position, Quaternion.identity);
-        Instantiate(WormPrefab, SpawnPosition2.position, Quaternion.identity);
-        Instantiate(SlimePrefab, SpawnPosition3.position, Quaternion.identity);
-        Instantiate(WormPrefab, SpawnPosition4.position, Quaternion.identity);
-        Instantiate(SlimePrefab, SpawnPosition5.position, Quaternion.identity);
+        Instantiate(slimePrefab, SpawnPosition1.position, Quaternion.identity);
+        Instantiate(slimePrefab, SpawnPosition3.position, Quaternion.identity);
+        Instantiate(slimePrefab, SpawnPosition5.position, Quaternion.identity);
+    }
+
+    public void SpawnSnailInstance()
+    {
         Instantiate(SnailPrefab, SpawnPosition6.position, Quaternion.identity);
         Instantiate(SnailPrefab, SpawnPosition7.position, Quaternion.identity);
     }
 
+    public void SpawnWormInstance()
+    {
+        Instantiate(wormPrefab, SpawnPosition2.position, Quaternion.identity);
+        Instantiate(wormPrefab, SpawnPosition4.position, Quaternion.identity);
+    }
+
     public void UpdateScoreSlime()
     {
-        MainScore += 100;
-        Score.text = "Score: " + MainScore.ToString();
+        currentScore += 100;
+        scoreText.text = "Score: " + currentScore.ToString();
     } 
     
     public void UpdateScoreWorm()
     {
-        MainScore += 500;
-        Score.text = "Score: " + MainScore.ToString();
+        currentScore += 400;
+        scoreText.text = "Score: " + currentScore.ToString();
     }
     
     public void UpdateScoreSnail()
     {
-        MainScore += 800;
-        Score.text = "Score: " + MainScore.ToString();
+        currentScore += 700;
+        scoreText.text = "Score: " + currentScore.ToString();
     }
 
-    public void LoseGame()
+    public void HighScoreUpdate()
     {
-        PlayerControllerInstance.CanReceiveGameInput = (false);
+        if (PlayerPrefs.HasKey("SavedHighScore"))
+        {
+            if(currentScore > PlayerPrefs.GetInt("SavedHighScore"))
+            {
+                PlayerPrefs.SetInt("SavedHighScore", currentScore);
+            }
+        }
+        else
+        {
+            PlayerPrefs.SetInt("SavedHighScore", currentScore);
+        }
+        finalScoreText.text = "Score: " + currentScore.ToString();
+        highScoreText.text = "HighScore: " + PlayerPrefs.GetInt("SavedHighScore").ToString();
     }
 }

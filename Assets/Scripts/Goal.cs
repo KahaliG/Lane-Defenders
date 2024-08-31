@@ -6,32 +6,31 @@ using UnityEngine.SceneManagement;
 
 public class Goal : MonoBehaviour
 {
-    public PlayerController PlayerControllerInstance;
-    protected int Lives = 3;
-    public GameManager GM;
     public TMP_Text LivesText;
+    [SerializeField] public int Lives;
+    public PlayerController PlayerControllerInstance;
+    public AudioClip LifeLost;
+    [SerializeField] public GameObject GameOverMenu;
+    public GameObject Player;
+    public GameObject goal;
+
+    public GameManager gameManger;
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.GetComponent<EnemyMovement>() != null)
         {
-            LivesText.text = "Lives: " + Lives.ToString();
-            Lives--;
+
+            if (collision.gameObject.tag == "Enemy")
+            {
+                AudioSource.PlayClipAtPoint(LifeLost, transform.position);
+                LivesText.text = "Lives: " + Lives.ToString();
+                Lives--;
+            }
         }
 
-        if (collision.gameObject.tag == "Enemy")
-        {
-            LivesText.text = "Lives: " + Lives.ToString();
-            Lives--;          
-        }
 
-        if (collision.gameObject.tag == "Enemy")
-        {
-            LivesText.text = "Lives: " + Lives.ToString();
-            Lives--;
-        }
-
-        if (Lives <= 0)
+        if (Lives < 0)
         {
             LoseGame();
         }
@@ -39,7 +38,9 @@ public class Goal : MonoBehaviour
 
     public void LoseGame()
     {
+        Time.timeScale = 0;
+        GameOverMenu.SetActive(true);
         PlayerControllerInstance.CanReceiveGameInput = (false);
-        SceneManager.LoadScene(2);
+        gameManger.HighScoreUpdate();
     }
 }
