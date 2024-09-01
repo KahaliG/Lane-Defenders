@@ -12,10 +12,16 @@ public class WormHitbox : MonoBehaviour
     private bool stunnedwaittime;
     private float StunnedSped;
     public float StunTime;
-    public float Timer = 3;
+    public float Timer = 33;
     public float Speed;
     public float Sped;
-    public float transferSped;
+    public float transferSped;     
+    public Animator Anim;
+
+    public void Start()
+    {
+        Anim = gameObject.GetComponent<Animator>();
+    }
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -37,11 +43,11 @@ public class WormHitbox : MonoBehaviour
             Lives--;
             transferSped = StunnedSped;
             stunnedwaittime = true;
-            //EnemyAnimation.SetBool("Shot", true);
         }
 
         if (Lives < 0)
         {
+            Anim.SetTrigger("Hit");
             AudioSource.PlayClipAtPoint(EnemyDied, transform.position);
             Destroy(gameObject);
             GameManager GM = FindObjectOfType<GameManager>();
@@ -55,12 +61,6 @@ public class WormHitbox : MonoBehaviour
         if (collision.gameObject.tag == "PlayerController")
         {
             Destroy(this.gameObject);
-        }
-
-        if (beenHit)
-        {
-
-
         }
     }
 

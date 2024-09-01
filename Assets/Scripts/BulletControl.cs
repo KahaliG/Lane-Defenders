@@ -6,11 +6,10 @@ public class BulletControl : MonoBehaviour
 {
     private Rigidbody2D rb2d;
     [SerializeField] public bool HasBeenShot;
-    [SerializeField] public float BulletSpeed = 100;
-    [SerializeField] public GameManager GM;
+    [SerializeField] public float BulletSpeed = 10;
     [SerializeField] public float revSpeed;
-    [SerializeField] public GameObject Player;
-    [SerializeField] public Quaternion Angel;
+    [SerializeField] private GameObject Player;
+    private Animator Anim;
     
 
 
@@ -18,30 +17,22 @@ public class BulletControl : MonoBehaviour
     void Start()
     {
         Player = GameObject.Find("BulletSpawmer");
-
-
-        rb2d = GetComponent<Rigidbody2D>();
+        Anim = gameObject.GetComponent<Animator>();
+;
+        rb2d = gameObject.GetComponent<Rigidbody2D>();
     }
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Enemy")
         {
+            Anim.SetTrigger("Explosion");
             BulletSpeed = rb2d.velocity.x * 55f;
-            rb2d.velocity = new Vector2(BulletSpeed, -rb2d.velocity.y);
-            Destroy(this.gameObject);
+            rb2d.velocity = Vector2.zero;
+            Anim.SetTrigger("DestroyObj");
         }
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Enemy")
-        {
-            BulletSpeed = rb2d.velocity.x * 1.1f;
-            rb2d.velocity = new Vector2(BulletSpeed, -rb2d.velocity.y);
-            Destroy(this.gameObject);
-        }
-    }
 
     public void Shoot()
     {

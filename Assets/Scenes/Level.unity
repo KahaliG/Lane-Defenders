@@ -771,7 +771,7 @@ Transform:
   m_GameObject: {fileID: 131628771}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.8926, y: 1.1098001, z: 0}
+  m_LocalPosition: {x: -10.65, y: 1.1098001, z: 0}
   m_LocalScale: {x: 40.11269, y: 7.8027925, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4446,7 +4446,7 @@ Transform:
   m_GameObject: {fileID: 817547112}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.451, y: 0.187, z: 0}
+  m_LocalPosition: {x: 0.451, y: 0.201, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5188,7 +5188,6 @@ MonoBehaviour:
   CanReceiveGameInput: 1
   HasBeenClicked: 1
   timer: 1
-  Anim: {fileID: 1008732855}
   BulletShot: {fileID: 8300000, guid: ab746aa05a723724f99368a9ee37d3c0, type: 3}
 --- !u!114 &946964912
 MonoBehaviour:

@@ -16,6 +16,12 @@ public class SlimeHitbox : MonoBehaviour
     public float Speed;
     public float Sped;
     public float transferSped;
+    private Animator Anim;
+
+    public void Start()
+    {
+        Anim = gameObject.GetComponent<Animator>();
+    }
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
@@ -34,10 +40,10 @@ public class SlimeHitbox : MonoBehaviour
 
         if (collision.gameObject.tag == "PlayerBullet")
         {
+            Anim.SetTrigger("Hit");
             Lives--;
             transferSped = StunnedSped;
             stunnedwaittime = true;
-            //EnemyAnimation.SetBool("Shot", true);
         }
 
 

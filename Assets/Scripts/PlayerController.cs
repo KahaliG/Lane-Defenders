@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     public float timer = 2f;
     private float moveDirection;
     private Coroutine CurrentTimer;
-    public GameObject Anim;
+    private Animator Anim;
     public AudioClip BulletShot;
    
 
@@ -36,6 +36,7 @@ public class PlayerController : MonoBehaviour
         Shoot = MyPlayerInput.currentActionMap.FindAction("Shoot");
         Restart = MyPlayerInput.currentActionMap.FindAction("RestartGame");
         Quit = MyPlayerInput.currentActionMap.FindAction("QuitGame");
+        Anim = gameObject.GetComponent<Animator>();
 
         Move.started += Handle_MovetStarted;
         Shoot.started += Handle_ShootStarted;
@@ -103,7 +104,8 @@ public class PlayerController : MonoBehaviour
     {
         //Bullet it self
 
-      //  Anim.SetActive(true);
+        //Anim.SetActive(true);
+        //Anim.SetTrigger("Hit");
         GameObject bullet = Instantiate(rocket, bulletSpawner.position, Quaternion.identity);
         Rigidbody2D bulletrb2d = bullet.GetComponent<Rigidbody2D>();
         var rads = (transform.eulerAngles.z) * Mathf.Deg2Rad;
