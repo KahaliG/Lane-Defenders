@@ -5,7 +5,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] public float ScrollSpeed;
     [SerializeField] public const float ScrollWidth = 15;
     public bool CanReceiveGameInput;
-    private bool stunnedwaittime;
+    private bool StunWaitTime;
     private float StunnedSped;
     public float StunTime;
     public float Timer;
@@ -22,19 +22,19 @@ public class EnemyMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (CanReceiveGameInput == true)
-        {
-            Vector3 pos = transform.position;
+        //if (CanReceiveGameInput == true)
+        //{
+        //    Vector3 pos = transform.position;
 
 
-            pos.x -= ScrollSpeed * Time.deltaTime;
+        //    pos.x -= ScrollSpeed * Time.deltaTime;
 
-            if (transform.position.x < -ScrollWidth)
-            {
-                HandleOffScreen(ref pos);
-            }
-            transform.position = pos;
-        }
+        //    if (transform.position.x < -ScrollWidth)
+        //    {
+        //        HandleOffScreen(ref pos);
+        //    }
+        //    transform.position = pos;
+        //}
     }
 
     protected virtual private void HandleOffScreen(ref Vector3 pos)
@@ -45,16 +45,27 @@ public class EnemyMovement : MonoBehaviour
 
     public void Update()
     {
-        if (stunnedwaittime == true)
+        if (StunWaitTime == true)
         {
             Timer += Time.deltaTime;
             if (Timer >= StunTime)
             {
                 transferSped = ScrollSpeed;
                 Timer = 0;
-                stunnedwaittime = false;
+                StunWaitTime = false;
             }
 
         }
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if (collision.gameObject.tag == "PlayerBullet")
+        {
+            transferSped = StunnedSped;
+            StunWaitTime = true;
+        }
+
     }
 }

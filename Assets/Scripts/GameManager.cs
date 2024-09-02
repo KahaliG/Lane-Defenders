@@ -14,9 +14,9 @@ public class GameManager : MonoBehaviour
     public TMP_Text highScoreText;
     public int currentScore;
     public int Lives;
-    public float SlimeTimer = 2;
-    public float SnailTimer = 3;
-    public float WormTimer = 3;
+    public float SlimeTimer;
+    public float SnailTimer;
+    public float WormTimer;
     public bool RunGame;
     public Transform SpawnPosition1;
     public Transform SpawnPosition2;
@@ -76,9 +76,10 @@ public class GameManager : MonoBehaviour
 
     public void SpawnSlimeInstance()
     {
-        randomLane = Random.Range(1, enemy.Count) - 1;
-        randomLane = 0;
-        GameObject enemy = Instantiate(enemy[randomEnemy], )
+        //randomLane = Random.Range(1, lanes.Count) - 1;
+        //randomLane = 0;
+        //GameObject enemy = Instantiate(enemy[randomEnemy], lanes.[randomLane]).transform);
+        //enemy.transform.position = _lanes[randomLane].transform;
         Instantiate(slimePrefab, SpawnPosition1.position, Quaternion.identity);
         Instantiate(slimePrefab, SpawnPosition3.position, Quaternion.identity);
         Instantiate(slimePrefab, SpawnPosition5.position, Quaternion.identity);

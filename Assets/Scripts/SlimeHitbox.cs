@@ -9,7 +9,6 @@ public class SlimeHitbox : MonoBehaviour
     [SerializeField] public int Lives;
     [SerializeField] public bool ScoreBox;
     public AudioClip EnemyDied;
-    private bool stunnedwaittime;
     private float StunnedSped;
     public float StunTime;
     public float Timer;
@@ -26,24 +25,10 @@ public class SlimeHitbox : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (stunnedwaittime == true)
-        {
-            Timer += Time.deltaTime;
-            if (Timer >= StunTime)
-            {
-                transferSped = Speed;
-                Timer = 0;
-                // EnemyAnimation.SetBool("Shot", false);
-                stunnedwaittime = false;
-            }
-        }
-
         if (collision.gameObject.tag == "PlayerBullet")
         {
             Anim.SetTrigger("Hit");
             Lives--;
-            transferSped = StunnedSped;
-            stunnedwaittime = true;
         }
 
 
