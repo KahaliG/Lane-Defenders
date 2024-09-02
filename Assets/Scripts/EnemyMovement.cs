@@ -22,19 +22,19 @@ public class EnemyMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        //if (CanReceiveGameInput == true)
-        //{
-        //    Vector3 pos = transform.position;
+        if (CanReceiveGameInput == true)
+        {
+            Vector3 pos = transform.position;
 
 
-        //    pos.x -= ScrollSpeed * Time.deltaTime;
+            pos.x -= ScrollSpeed * Time.deltaTime;
 
-        //    if (transform.position.x < -ScrollWidth)
-        //    {
-        //        HandleOffScreen(ref pos);
-        //    }
-        //    transform.position = pos;
-        //}
+            if (transform.position.x < -ScrollWidth)
+            {
+                HandleOffScreen(ref pos);
+            }
+            transform.position = pos;
+        }
     }
 
     protected virtual private void HandleOffScreen(ref Vector3 pos)
