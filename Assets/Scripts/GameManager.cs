@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,6 +26,10 @@ public class GameManager : MonoBehaviour
     public Transform SpawnPosition6;
     public Transform SpawnPosition7;
     public float backgroundMovementModifier;
+    private int randomLane;
+    private int randomEnemy;
+    private List<GameObject> enemy;
+    private List<GameObject> lanes;
 
     private void Start()
     {
@@ -44,6 +49,7 @@ public class GameManager : MonoBehaviour
             {
                 SpawnSlimeInstance();
                 currentSlimeTime = SlimeTimer;
+                yield return new WaitForSeconds(4);
             }
 
             yield return null;
@@ -53,6 +59,7 @@ public class GameManager : MonoBehaviour
             {
                 SpawnWormInstance();
                 currentSnailTime = SnailTimer;
+                yield return new WaitForSeconds(4);
             }
 
             yield return null;
@@ -62,14 +69,16 @@ public class GameManager : MonoBehaviour
             {
                 SpawnSnailInstance();
                 currentWormTime = WormTimer;
+                yield return new WaitForSeconds(4);
             }
-
-            yield return null;
         }
     }
 
     public void SpawnSlimeInstance()
     {
+        randomLane = Random.Range(1, enemy.Count) - 1;
+        randomLane = 0;
+        GameObject enemy = Instantiate(enemy[randomEnemy], )
         Instantiate(slimePrefab, SpawnPosition1.position, Quaternion.identity);
         Instantiate(slimePrefab, SpawnPosition3.position, Quaternion.identity);
         Instantiate(slimePrefab, SpawnPosition5.position, Quaternion.identity);
