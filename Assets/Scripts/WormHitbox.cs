@@ -16,7 +16,7 @@ public class WormHitbox : MonoBehaviour
     public float Speed;
     public float Sped;
     public float transferSped;     
-    public Animator Anim;
+    private Animator Anim;
 
     public void Start()
     {
@@ -40,6 +40,7 @@ public class WormHitbox : MonoBehaviour
 
         if (collision.gameObject.tag == "PlayerBullet")
         {
+            Anim.SetTrigger("Hit");
             Lives--;
             transferSped = StunnedSped;
             stunnedwaittime = true;
@@ -47,7 +48,6 @@ public class WormHitbox : MonoBehaviour
 
         if (Lives < 0)
         {
-            Anim.SetTrigger("Hit");
             AudioSource.PlayClipAtPoint(EnemyDied, transform.position);
             Destroy(gameObject);
             GameManager GM = FindObjectOfType<GameManager>();

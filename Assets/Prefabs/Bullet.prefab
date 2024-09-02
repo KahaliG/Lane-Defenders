@@ -102,10 +102,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HasBeenShot: 0
   BulletSpeed: 50
-  GM: {fileID: 0}
   revSpeed: 50
-  Player: {fileID: 0}
-  Angel: {x: 0, y: 0, z: 0, w: 0}
+  ImpactExplostion: {fileID: 3604048916347621948, guid: 6c34f070ae5087e48b2fff82930e8f8c, type: 3}
 --- !u!50 &8614346542883644312
 Rigidbody2D:
   serializedVersion: 4

@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
     private Coroutine CurrentTimer;
     private Animator Anim;
     public AudioClip BulletShot;
+    public GameObject Explosion;
+    public GameObject Barrel;
    
 
     void Start()
@@ -94,6 +96,7 @@ public class PlayerController : MonoBehaviour
         HasBeenClicked = true;
        if (CurrentTimer == null)
         {
+            Instantiate(Explosion, Barrel.transform);
             CurrentTimer = StartCoroutine(BulletTimer());
         }
 
@@ -103,18 +106,14 @@ public class PlayerController : MonoBehaviour
     public void SpawnBullet()
     {
         //Bullet it self
-
-        //Anim.SetActive(true);
-        //Anim.SetTrigger("Hit");
         GameObject bullet = Instantiate(rocket, bulletSpawner.position, Quaternion.identity);
         Rigidbody2D bulletrb2d = bullet.GetComponent<Rigidbody2D>();
         var rads = (transform.eulerAngles.z) * Mathf.Deg2Rad;
         Vector2 vec = bulletSpeed * new Vector2(Mathf.Cos(rads), Mathf.Sin(rads));
         bulletrb2d.velocity = vec;
         AudioSource.PlayClipAtPoint(BulletShot, transform.position);
-      //  Anim.SetActive(false);
 
-        timer = 1.3f;
+        timer = 1.6f;
         //Timer of the bullet 
     }
 
@@ -138,7 +137,7 @@ public class PlayerController : MonoBehaviour
             yield return null;
            //Repeat the corotine 
         }
-        timer = 1.3f;
+        timer = 1.6f;
         //Timer has reset back to 3 seconds
 
         CurrentTimer = null;

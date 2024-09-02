@@ -102,6 +102,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScrollSpeed: 3
   CanReceiveGameInput: 1
+  StunTime: 0
+  Timer: 33
+  Speed: 0
+  Sped: 0
+  transferSped: 0
 --- !u!61 &4808440412885972738
 BoxCollider2D:
   m_ObjectHideFlags: 0

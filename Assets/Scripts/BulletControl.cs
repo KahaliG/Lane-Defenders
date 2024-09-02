@@ -8,8 +8,10 @@ public class BulletControl : MonoBehaviour
     [SerializeField] public bool HasBeenShot;
     [SerializeField] public float BulletSpeed = 10;
     [SerializeField] public float revSpeed;
-    [SerializeField] private GameObject Player;
+    private GameObject Player;
     private Animator Anim;
+    public GameObject ImpactExplostion;
+
     
 
 
@@ -22,14 +24,13 @@ public class BulletControl : MonoBehaviour
         rb2d = gameObject.GetComponent<Rigidbody2D>();
     }
 
-    public void OnCollisionEnter2D(Collision2D collision)
+    public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if(collision.gameObject.tag == "Enemy")
         {
-            Anim.SetTrigger("Explosion");
-            BulletSpeed = rb2d.velocity.x * 55f;
-            rb2d.velocity = Vector2.zero;
-            Anim.SetTrigger("DestroyObj");
+            GameObject bullet = Instantiate(ImpactExplostion, collision.gameObject.transform);
+            bullet.transform.parent = null;
+            Destroy(this.gameObject);
         }
     }
 
@@ -42,13 +43,9 @@ public class BulletControl : MonoBehaviour
             GetComponent<Rigidbody2D>().velocity = new Vector2(UnityEngine.Random.Range(-10.0f, 10.0f), Random.Range(-10.0f, 10.0f));
             Debug.Log(rb2d.velocity.magnitude);
             rb2d.MoveRotation(rb2d.rotation + revSpeed * Time.fixedDeltaTime);
-            StartCoroutine(Lock());
         }
 
     }
 
-    public IEnumerator Lock()
-    {
-        yield return new WaitForSeconds(15f);
-    }
+    
 }

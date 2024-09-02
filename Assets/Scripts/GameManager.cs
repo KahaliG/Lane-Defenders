@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public TMP_Text finalScoreText;
     public TMP_Text highScoreText;
     public int currentScore;
+    public int Lives;
     public float SlimeTimer = 2;
     public float SnailTimer = 3;
     public float WormTimer = 3;

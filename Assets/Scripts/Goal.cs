@@ -7,14 +7,19 @@ using UnityEngine.SceneManagement;
 public class Goal : MonoBehaviour
 {
     public TMP_Text LivesText;
-    [SerializeField] public int Lives;
     public PlayerController PlayerControllerInstance;
     public AudioClip LifeLost;
     [SerializeField] public GameObject GameOverMenu;
     public GameObject Player;
     public GameObject goal;
 
-    public GameManager gameManger;
+    public GameManager gameManager;
+
+
+    private void Start()
+    {
+        gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+    }
 
     public void OnCollisionEnter2D(Collision2D collision)
     {
@@ -24,13 +29,14 @@ public class Goal : MonoBehaviour
             if (collision.gameObject.tag == "Enemy")
             {
                 AudioSource.PlayClipAtPoint(LifeLost, transform.position);
-                LivesText.text = "Lives: " + Lives.ToString();
-                Lives--;
+                gameManager.Lives--;
+                LivesText.text = "Lives: " + gameManager.Lives.ToString();
+                
             }
         }
 
 
-        if (Lives < 0)
+        if (gameManager.Lives <= 0)
         {
             LoseGame();
         }
@@ -41,6 +47,6 @@ public class Goal : MonoBehaviour
         Time.timeScale = 0;
         GameOverMenu.SetActive(true);
         PlayerControllerInstance.CanReceiveGameInput = (false);
-        gameManger.HighScoreUpdate();
+        gameManager.HighScoreUpdate();
     }
 }

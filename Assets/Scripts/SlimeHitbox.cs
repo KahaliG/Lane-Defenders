@@ -63,12 +63,6 @@ public class SlimeHitbox : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-
-        if (beenHit)
-        {
-
-
-        }
     }
 
 
